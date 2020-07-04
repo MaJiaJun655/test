@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>现在添加标题</title>
+<style>
+	.info{
+		width: 150px;
+		height: 150px;
+		background-color: red;
+		display: inline-block;
+		margin: 10px;
+	}
+	img{
+		width: 150px;
+		height: 120px;
+	}
+</style>
+</head>
+<body>
+	<div id="main">
+		<select @change="getselect">
+			<option v-for="item in info" :value="item.sid">{{item.sname}}</option>
+		</select>
+		<table>
+			<tr>
+				<td>专业名称</td>
+				<td>分数</td>
+				<td>时间</td>
+			</tr>
+			<tr v-for="itemi in infos.kcs">
+				<td>{{itemi.kcname}}</td>
+				<td>
+					<input type="text" placeholder="请填入分数">
+				</td>
+				<td>
+					<input type="text" placeholder="时间">
+				</td>
+			</tr>
+			<button>保存</button>
+		</table>
+	</div>
+	
+	
+	
+	<script th:src="@{/js/jquery-1.12.4.js}"></script>
+	<script th:src="@{/js/vue.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script>
+		var vm = new Vue({
+			el:"#main",
+			data(){
+				return{
+					info:[],
+					infos:{}
+				}
+			},methods:{
+				getinfo(){
+					$.ajax({
+						url:"/main/allinfo",
+						success:function(resp){
+							vm.info = resp
+						}	
+					})					
+				},getselect(){
+					var text = $("select").val();
+					$.ajax({
+						url:"/main/getbysid",
+						data:{
+							sid:text
+						},
+						success:function(resp){
+							vm.infos = resp
+						}	
+					})
+				}
+				
+			},created(){
+				this.getinfo()
+			}	
+		})
+	</script>
+</body>
+</html>

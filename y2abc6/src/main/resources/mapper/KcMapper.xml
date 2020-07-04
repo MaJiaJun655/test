@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.accp.dao.KcMapper" >
+  <resultMap id="BaseResultMap" type="com.accp.model.Kc" >
+    <result column="kcid" property="kcid" jdbcType="INTEGER" />
+    <result column="kcname" property="kcname" jdbcType="VARCHAR" />
+    <result column="zyid" property="zyid" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectbyzyid" resultMap="BaseResultMap">
+  	SELECT * FROM kc WHERE zyid = #{zyid}
+  </select>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    kcid, kcname, zyid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.accp.model.KcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from kc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.accp.model.KcExample" >
+    delete from kc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.accp.model.Kc" >
+    insert into kc (kcid, kcname, zyid
+      )
+    values (#{kcid,jdbcType=INTEGER}, #{kcname,jdbcType=VARCHAR}, #{zyid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.accp.model.Kc" >
+    insert into kc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="kcid != null" >
+        kcid,
+      </if>
+      <if test="kcname != null" >
+        kcname,
+      </if>
+      <if test="zyid != null" >
+        zyid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="kcid != null" >
+        #{kcid,jdbcType=INTEGER},
+      </if>
+      <if test="kcname != null" >
+        #{kcname,jdbcType=VARCHAR},
+      </if>
+      <if test="zyid != null" >
+        #{zyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.accp.model.KcExample" resultType="java.lang.Integer" >
+    select count(*) from kc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update kc
+    <set >
+      <if test="record.kcid != null" >
+        kcid = #{record.kcid,jdbcType=INTEGER},
+      </if>
+      <if test="record.kcname != null" >
+        kcname = #{record.kcname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zyid != null" >
+        zyid = #{record.zyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update kc
+    set kcid = #{record.kcid,jdbcType=INTEGER},
+      kcname = #{record.kcname,jdbcType=VARCHAR},
+      zyid = #{record.zyid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+div{
+display: inline-block;
+width: 500px;
+height:500px;
+font-size: 36px;
+
+}
+img{
+width: 500px;
+height:500px;
+}
+
+</style>
+</head>
+<body>
+	<h1>详情信息</h1>
+	<div>
+		<table>
+			<tr>
+				<td>昵称：</td>
+				<td th:text="${list.name}"></td>
+			</tr>
+			<tr>
+				<td>性别：</td>
+				<td th:if="${list.sex} eq 0">男</td>
+				<td th:if="${list.sex} eq 1">女</td>
+			</tr>
+			<tr>
+				<td>年龄：</td>
+				<td th:text="${list.age}"></td>
+			</tr>
+			<tr>
+				<td>身高：</td>
+				<td th:text="${list.sg}"></td>
+			</tr>
+			<tr>
+				<td>体重：</td>
+				<td th:text="${list.tz}"></td>
+			</tr>
+			<tr>
+				<td>星座：</td>
+				<td th:text="${list.xz}"></td>
+			</tr>
+			<tr>
+				<td>学历：</td>
+				<td th:text="${list.xueli}"></td>
+			</tr>
+			<tr>
+				<td>职业：</td>
+				<td th:text="${list.zy}"></td>
+			</tr>
+			<tr>
+				<td>公司类型：</td>
+				<td th:text="${list.type}"></td>
+			</tr>
+			<tr>
+				<td>感情状态：</td>
+				<td th:if="${list.lovezt} eq 0">单身</td>
+				<td th:if="${list.lovezt} eq 1">已婚</td>
+			</tr>		
+		</table>
+	</div>
+	<div>
+		<img th:src="${list.image}"></img>
+	</div>
+</body>
+</html>
